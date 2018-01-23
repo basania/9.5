@@ -19,9 +19,11 @@ string Book::is_isbn_code_valid(Book& object)
 	while (i < code.size())
 	{
 		if (code[1] != dash || code[3] != dash || code[5] != dash)
-		{
 			return "Incorrect position of dashes\n";
-		}
+		if (!isalpha(code[0]) || !isalpha(code[0]) || !isalpha(code[4]))
+			return "Incorrect position of characters\n";
+		if (!isdigit(code[6]))
+			return "Incorrect position of the digit\n";
 		i++;
 	}
 	object.isbn_code = code;
@@ -29,8 +31,13 @@ string Book::is_isbn_code_valid(Book& object)
 	return object.isbn_code;
 }
 
-
-void Book::print_book()
+void Book::book_name_init(Book& object)
 {
-	cout << isbn_code;
+	cout << "Enter the book's name: ";
+	cin >> object.book_name;
+}
+
+void Book::print_book(Book& object)
+{
+	cout << object.isbn_code << endl;
 }

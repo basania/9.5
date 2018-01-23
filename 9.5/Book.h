@@ -15,7 +15,8 @@ class Book
 {
 public:
 	string is_isbn_code_valid(Book& object);
-	void print_book();
+	void book_name_init(Book& object);
+	void print_book(Book& object);
 
 private:
 	string isbn_code;
