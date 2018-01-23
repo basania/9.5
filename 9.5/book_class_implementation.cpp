@@ -2,14 +2,21 @@
 #include "stdafx.h"
 #include "Book.h"
 
-
+void Book::book_init(Book& book)
+{
+	book.book_name_init(book);
+	book.book_author(book);
+	book.book_auth_rights_date(book);
+	book.is_book_given(book);
+	book.is_isbn_code_valid(book);
+	book.print_book(book);
+}
 
 void Book::is_isbn_code_valid(Book& object)
 {
 	string code;
 	bool incorrect = true;
 	char dash = '-';
-
 	while (incorrect) {
 		int i = 0;
 		int error_counter = 0;
@@ -18,7 +25,6 @@ void Book::is_isbn_code_valid(Book& object)
 
 		if (code.size() != 7) {
 			cout << "Code should be 7 symbols long.\n";
-			incorrect = true;
 			error_counter++;
 		}
 		if (code.size() == 7) {
@@ -48,17 +54,65 @@ void Book::is_isbn_code_valid(Book& object)
 		if (error_counter == 0)
 			incorrect = false;
 	}
-	if (!incorrect)
 		object.isbn_code = code;
 }
 
-void Book::book_name_init(Book& object)
+void Book::book_name_init(Book& object) ////
 {
 	cout << "Enter the book's name: ";
-	cin >> object.book_name;
+	getline(cin, object.book_name);
+}
+
+void Book::book_author(Book& object) ////
+{
+	cout << "Enter last name of the book's author: ";
+	getline (cin, object.author_last_name);
+}
+
+void Book::book_auth_rights_date(Book& object)
+{
+	cout << "Enter date of author rights assignment: ";
+	cin >> object.author_rights;
+}
+
+void Book::is_book_given(Book& object)
+{
+	string choice;
+	bool incorrect = true;
+	
+	while (incorrect)
+	{
+		cout << "Was the book given out (y/n)?\n";
+		cin >> choice;
+
+		if (choice == "y")
+		{
+			object.is_given = true;
+			incorrect = false;
+		}
+		else {
+			if (choice == "n")
+			{
+				object.is_given = false;
+				incorrect = false;
+			}
+			else
+			{
+				cout << "Enter either 'y' or 'n'.\n";
+				incorrect = true;
+			}
+		}
+	}
 }
 
 void Book::print_book(Book& object)
 {
-	cout << object.isbn_code << endl;
+	cout << "\nBOOK INFO\n";
+	cout << "------------------\n";
+	cout << "Name: " << object.book_name << endl;
+	cout << "Author: " << object.author_last_name << endl;
+	cout << "Author rights assignment date: " << object.author_rights << endl;
+	cout << "Book was given: " << object.is_given << endl;
+	cout << "ISBN code: " << object.isbn_code;
+	cout << "\n-----------------\n";
 }
