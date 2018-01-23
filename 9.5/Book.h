@@ -14,16 +14,26 @@ using std::endl;
 class Book
 {
 public:
-	void is_isbn_code_valid(Book& object);
-	void book_name_init(Book& object);
-	void print_book(Book& object);
+	Book();
+	void is_isbn_code_valid();
+	void book_name_init();
+	void book_author();
+	void book_auth_rights_date();
+	void is_book_given();
+	std::string print_book() const;
+	friend std::ostream & operator<< (std::ostream & stream, const Book & obj)
+	{
+		stream << obj.print_book();
+		return stream;
+	}
 
 private:
 	string isbn_code;
 	string book_name;
 	string author_last_name;
-	string copyright_date;
-	bool is_given;
+	string author_rights;
+	string is_given;
 };
+
 
 
