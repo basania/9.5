@@ -14,7 +14,7 @@ using std::endl;
 class Book
 {
 public:
-	string is_isbn_code_valid(Book& object);
+	void is_isbn_code_valid(Book& object);
 	void book_name_init(Book& object);
 	void print_book(Book& object);
 
