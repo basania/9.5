@@ -2,17 +2,18 @@
 #include "stdafx.h"
 #include "Book.h"
 
-void Book::book_init(Book& book)
+Book::Book()
 {
-	book.book_name_init(book);
-	book.book_author(book);
-	book.book_auth_rights_date(book);
-	book.is_book_given(book);
-	book.is_isbn_code_valid(book);
-	book.print_book(book);
+	is_isbn_code_valid();
+	book_name_init();
+	book_author();
+	book_auth_rights_date();
+	is_book_given();
+	print_book();
 }
 
-void Book::is_isbn_code_valid(Book& object)
+
+void Book::is_isbn_code_valid()
 {
 	string code;
 	bool incorrect = true;
@@ -21,8 +22,7 @@ void Book::is_isbn_code_valid(Book& object)
 		int i = 0;
 		int error_counter = 0;
 		cout << "Enter 6-symbol ISBN code (e.g. n-n-n-x, where n - character, x - integer): ";
-		cin >> code;
-
+		std::getline(std::cin, code);
 		if (code.size() != 7) {
 			cout << "Code should be 7 symbols long.\n";
 			error_counter++;
@@ -54,28 +54,28 @@ void Book::is_isbn_code_valid(Book& object)
 		if (error_counter == 0)
 			incorrect = false;
 	}
-		object.isbn_code = code;
+		isbn_code = code;
 }
 
-void Book::book_name_init(Book& object) ////
+void Book::book_name_init() ////
 {
 	cout << "Enter the book's name: ";
-	getline(cin, object.book_name);
+	getline(cin, book_name);
 }
 
-void Book::book_author(Book& object) ////
+void Book::book_author() ////
 {
 	cout << "Enter last name of the book's author: ";
-	getline (cin, object.author_last_name);
+	getline (cin, author_last_name);
 }
 
-void Book::book_auth_rights_date(Book& object)
+void Book::book_auth_rights_date()
 {
 	cout << "Enter date of author rights assignment: ";
-	cin >> object.author_rights;
+	cin >> author_rights;
 }
 
-void Book::is_book_given(Book& object)
+void Book::is_book_given()
 {
 	string choice;
 	bool incorrect = true;
@@ -87,13 +87,13 @@ void Book::is_book_given(Book& object)
 
 		if (choice == "y")
 		{
-			object.is_given = true;
+			is_given = "Yes";
 			incorrect = false;
 		}
 		else {
 			if (choice == "n")
 			{
-				object.is_given = false;
+				is_given = "No";
 				incorrect = false;
 			}
 			else
@@ -105,14 +105,16 @@ void Book::is_book_given(Book& object)
 	}
 }
 
-void Book::print_book(Book& object)
+std::string Book::print_book() const
 {
-	cout << "\nBOOK INFO\n";
-	cout << "------------------\n";
-	cout << "Name: " << object.book_name << endl;
-	cout << "Author: " << object.author_last_name << endl;
-	cout << "Author rights assignment date: " << object.author_rights << endl;
-	cout << "Book was given: " << object.is_given << endl;
-	cout << "ISBN code: " << object.isbn_code;
-	cout << "\n-----------------\n";
+	std::string out;
+	out += "\nBOOK INFO\n";
+	out += "------------------\n";
+	out += "Name: " + book_name + '\n';
+	out += "Author: " + author_last_name + '\n';
+	out += "Author rights assignment date: " + author_rights + '\n';
+	out += "Book was given: " + is_given + '\n';
+	out += "ISBN code: " + isbn_code;
+	out += "\n-----------------\n";
+	return out;
 }
